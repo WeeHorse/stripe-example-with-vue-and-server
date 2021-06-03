@@ -2,14 +2,14 @@ import { mount } from '@vue/test-utils'
 import store from '../src/store/index.js'
 import Checkout from '../src/components/Checkout.vue'
 
-test('displays message', () => {
+test('Display checkout message', () => {
   const wrapper = mount(Checkout, {
     global: {
       plugins: [store]
     },
     data() {
         return {
-            title: 'Checkout'
+            title: 'No cigar'
         }
     }
   })

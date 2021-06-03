@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import store from '../src/store/index.js'
 import App from '../src/App.vue'
 
-test('displays message', () => {
+test('Set title', () => {
   const wrapper = mount(App, {
     global: {
         plugins: [store]
