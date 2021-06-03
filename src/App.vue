@@ -1,17 +1,13 @@
 <template>
-  <main> 
-    <Checkout/>
-  </main>
+  <div>
+    <header>
+        <nav>
+          <router-link to="/">Home</router-link> | 
+          <router-link to="/checkout">Checkout</router-link>
+        </nav>
+    </header>
+    <main> 
+      <router-view/>
+    </main>
+  </div>
 </template>
-
-<script>
-import Checkout from '/src/components/Checkout.vue'
-
-export default{
-  components:{
-    Checkout
-  }
-}
-
-</script>
-
