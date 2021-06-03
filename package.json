@@ -5,18 +5,23 @@
     "start": "node server --port 3002",
     "dev": "vite --port 3001",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "jest"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "stripe": "^8.150.0",
     "vue": "^3.0.5",
+    "vue-jest": "^5.0.0-alpha.10",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.5",
+    "@vue/test-utils": "^2.0.0-rc.6",
+    "babel-jest": "^26.6.3",
     "vite": "^2.2.3"
   }
 }
