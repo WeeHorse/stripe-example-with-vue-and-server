@@ -9,7 +9,7 @@ test('Display checkout message', () => {
     },
     data() {
         return {
-            title: 'No cigar'
+            title: 'Checkout'
         }
     }
   })
