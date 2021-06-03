@@ -33,7 +33,8 @@ const store = createStore({
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify(
                     {
-                        sumToCharge: total
+                        sumToCharge: total,
+                        email: 'ben@node.se'
                     }
                 )
             })
