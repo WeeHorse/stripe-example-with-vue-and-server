@@ -11,9 +11,6 @@
 
         <button @click="checkout">Checkout</button>
         
-        <button @click="pay">Pay</button>
-
-        <p>{{paymentResultMessage}}</p>
     </div>
 </template>
 
@@ -35,15 +32,9 @@ export default{
                 t = t + item.price * item.amount
             }
             return t
-        },
-        paymentResultMessage(){
-            return this.$store.state.paymentResultMessage
         }
     },
     methods:{
-        pay(){
-            this.$store.dispatch('pay', this.total)
-        },
         checkout(){
             this.$store.dispatch('checkout', this.total)
         }
