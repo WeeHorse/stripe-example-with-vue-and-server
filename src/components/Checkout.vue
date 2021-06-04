@@ -1,6 +1,6 @@
 <template>
     <div class="intro text">
-        <h2>Checkout</h2>
+        <h2>{{title}}</h2>
 
         <ul>
             <li v-for="(item, i) in items" :key="i">
@@ -17,6 +17,11 @@
 
 <script>
 export default{
+    data(){
+        return {
+            title: "Checkout"
+        }
+    },
     computed:{
         items(){
             return this.$store.state.cartItems
