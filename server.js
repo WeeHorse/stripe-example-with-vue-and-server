@@ -11,6 +11,30 @@ app.use( bodyParser.json() )
 const Stripe = require('stripe')
 const stripe = new Stripe('sk_test_NzHkwYglPCxxPr9NXGgBrhTy') // stripe.com api secret key
 
+// route for checkout
+app.post('/rest/create-checkout-session', async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price_data: {
+          currency: 'sek',
+          product_data: {
+            name: 'T-shirt',
+          },
+          unit_amount: 2000,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'http://localhost:3001/success',
+    cancel_url: 'http://localhost:3001/cancel',
+  });
+
+  res.json({ id: session.id });
+});
+
 // route for payment
 app.post('/rest/pay', async (request, response) => {
   let email = request.body.email
@@ -43,6 +67,9 @@ let port = 3000
 if(process.argv[2] == "--port"){
     port = process.argv[3]
 }
+
+// serve static files from .well-known
+app.use(express.static('.well-known'))
 
 // start server
 app.listen(port, async () => {
