@@ -1,4 +1,5 @@
 import { createStore } from "vuex" 
+import {loadStripe} from '@stripe/stripe-js';
 
 const store = createStore({
    state:{
@@ -40,8 +41,25 @@ const store = createStore({
             })
             let result = await response.json()
             commit('setPaymentResult', result)
+        },
+        async checkout({commit}, total){
+            const stripe = await loadStripe('pk_test_a3ai0mjFbb7R4JzyfXxZ8YcL');
+            //const elements = stripe.elements();
+            let response = await fetch('/rest/create-checkout-session', {
+                method: 'post',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify(
+                    {
+                        sumToCharge: total,
+                        email: 'ben@node.se'
+                    }
+                )
+            })
+            let result = await response.json()
+            console.log('result', result)
+            return stripe.redirectToCheckout({ sessionId: result.id });
+            // commit('setPaymentResult', result)
         }
-
    }
 })
 

@@ -9,6 +9,8 @@
         </ul>
         <p>Total: {{total}}</p>
 
+        <button @click="checkout">Checkout</button>
+        
         <button @click="pay">Pay</button>
 
         <p>{{paymentResultMessage}}</p>
@@ -16,6 +18,7 @@
 </template>
 
 <script>
+
 export default{
     data(){
         return {
@@ -40,6 +43,9 @@ export default{
     methods:{
         pay(){
             this.$store.dispatch('pay', this.total)
+        },
+        checkout(){
+            this.$store.dispatch('checkout', this.total)
         }
     }
 }
