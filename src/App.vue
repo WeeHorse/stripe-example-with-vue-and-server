@@ -1,23 +1,25 @@
-<template>
-  <main> 
-    <h1>{{title}}</h1>
-    <Checkout/>
-  </main>
+<template>   
+  <div>
+    <header>
+      <h1>{{title}}</h1>
+      <nav>
+        <router-link to="/">Home</router-link> | 
+        <router-link to="/checkout">Checkout</router-link>
+      </nav>
+    </header>
+    <main> 
+      <router-view/>
+    </main>
+  </div>
 </template>
 
 <script>
-import Checkout from '../src/components/Checkout.vue'
-
 export default{
   data(){
     return {
       title: "Ye Olde Shoppe"
     }
-  },
-  components:{
-    Checkout
   }
 }
 
 </script>
-
