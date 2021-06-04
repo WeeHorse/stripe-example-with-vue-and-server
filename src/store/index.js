@@ -24,7 +24,7 @@ const store = createStore({
    },
 
    actions:{
-        async checkout({commit}, total){
+        async checkout({commit, state}, total){
             const stripe = await loadStripe('pk_test_a3ai0mjFbb7R4JzyfXxZ8YcL');
             //const elements = stripe.elements();
             let response = await fetch('/rest/create-checkout-session', {
@@ -32,8 +32,7 @@ const store = createStore({
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify(
                     {
-                        sumToCharge: total,
-                        email: 'ben@node.se'
+                        items: state.cartItems
                     }
                 )
             })

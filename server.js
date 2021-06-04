@@ -13,20 +13,22 @@ const stripe = new Stripe('sk_test_NzHkwYglPCxxPr9NXGgBrhTy') // stripe.com api 
 
 // route for checkout
 app.post('/rest/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'sek',
-          product_data: {
-            name: 'T-shirt',
-          },
-          unit_amount: 2000,
+  
+  let line_items = req.body.items.map(item => { return {
+      price_data: {
+        currency: 'sek',
+        product_data: {
+          name: item.title,
         },
-        quantity: 1,
-      },
-    ],
+        unit_amount: item.price * 100,
+      },      
+      quantity: item.amount,
+      }
+  })
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],    
+    line_items: line_items,
     mode: 'payment',
     success_url: 'http://localhost:3001/success',
     cancel_url: 'http://localhost:3001/cancel',
@@ -34,32 +36,6 @@ app.post('/rest/create-checkout-session', async (req, res) => {
 
   res.json({ id: session.id });
 });
-
-// route for payment
-app.post('/rest/pay', async (request, response) => {
-  let email = request.body.email
-
-  // PAY WITH STRIPE
-  // create / access a stripe customer
-  let customer = await stripe.customers.create({
-    email: email,
-  });
-
-  // set payment method
-  let source = await stripe.customers.createSource(customer.id, {
-    source: 'tok_visa'
-  });
-
-  // charge payment
-  let charge = await stripe.charges.create({
-    amount: request.body.sumToCharge * 100, // SEK ören
-    currency: 'SEK',
-    customer: source.customer
-  });
-
-  response.json({customer, source, charge})
-
-})
 
 console.log(process.argv)
 // select port for server
